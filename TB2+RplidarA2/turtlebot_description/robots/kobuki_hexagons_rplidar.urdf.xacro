@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+    - Base      : kobuki
+    - Stacks    : hexagons
+    - 3d Sensor : rplidar
+-->    
+<robot name="turtlebot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find turtlebot_description)/urdf/turtlebot_common_library.urdf.xacro" />
+  <xacro:include filename="$(find kobuki_description)/urdf/kobuki.urdf.xacro" />
+  <xacro:include filename="$(find turtlebot_description)/urdf/stacks/rplidar_hexagons.urdf.xacro" />
+
+  <kobuki/>
+  <stack_hexagons parent="base_link"/>
+
+  <link name="laser" >
+    <visual>
+       <geometry>
+          <mesh filename="package://turtlebot_description/meshes/rplidar_a2.stl" scale="0.001 0.001 0.001"/>
+       </geometry>
+       <material name="Grey"/>
+       <origin rpy="0 0 -1.5707923" xyz="0 0 0"/>
+     </visual>
+     <collision>
+       <geometry>
+	  <mesh filename="package://turtlebot_description/meshes/rplidar_a2.stl" scale="0.001 0.001 0.001"/>
+       </geometry>
+     </collision>      
+   </link>
+
+   <joint name="base_link_to_laser" type="fixed">
+      <parent link="plate_top_link"/>
+      <child link="laser"/>
+         <origin rpy="0 0 3.1415926" xyz="0.0189 0 0.013"/>
+   </joint>
+
+</robot>
